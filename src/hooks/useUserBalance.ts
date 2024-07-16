@@ -24,7 +24,11 @@ export function useUserBalance() {
             }
         }
 
-        fetchBalance();
+        if (connected) {
+            fetchBalance();
+        } else {
+            setBalance(null); // Clear balance on disconnect
+        }
     }, [client, connected, walletAddress]);
 
     return { balance, walletAddress };

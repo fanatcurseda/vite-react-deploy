@@ -39,6 +39,8 @@ export function useContractWrapper() {
 
         if (connected) {
             getValue();
+        } else {
+            setContractData(null); // Clear contract data on disconnect
         }
     }, [mainContract, connected]);
 
@@ -55,6 +57,8 @@ export function useContractWrapper() {
                 }
             } else {
                 console.error("Not connected or balance is null, cannot send message");
+                console.log(balance);
+                console.log(connected);
             }
         }
     };
