@@ -6,7 +6,7 @@ import { useTonClient } from "./useTonClient";
 import { useConnection } from "./useConnection";
 import { useUserBalance } from "./useUserBalance";
 
-const TRANSACTION_FEE = toNano("0.1");
+const TRANSACTION_FEE = toNano("0.05");
 
 export function useContractWrapper() {
     const client = useTonClient();
