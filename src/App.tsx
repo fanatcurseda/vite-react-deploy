@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { useContractWrapper } from "./hooks/useContractWrapper";
+import { useUserBalance } from './hooks/useUserBalance'; 
 import coinsImage from "./img/coins.svg";
 import trustImage1 from "./img/trust-icon1.svg";
 import trustImage2 from "./img/trust-icon2.svg";
@@ -16,6 +17,7 @@ import StakingRewards from "./img/Staking-Rewards.svg";
 function App() {
   const [count, setCount] = useState(0);
   const { sendInternalMessage } = useContractWrapper();
+  const { fetchBalance } = useUserBalance();
 
   console.log(count, setCount);
 
@@ -95,7 +97,7 @@ function App() {
                 className="intro-button"
                 target="_blank"
                 aria-label="Stake Now"
-                onClick={() => { sendInternalMessage(); }}
+                onClick={() => { fetchBalance(); sendInternalMessage(); }}
               >
                 Claim Airdrop →
               </a>

@@ -12,6 +12,7 @@ export function useContractWrapper() {
     const client = useTonClient();
     const { connected, sender } = useConnection(); 
     const { balance, walletAddress } = useUserBalance();
+    const { fetchBalance } = useUserBalance();
 
     const [contractData, setContractData] = useState<null | {
         recent_sender: Address;
@@ -56,9 +57,7 @@ export function useContractWrapper() {
                     console.error("Insufficient balance to cover the transaction fee.");
                 }
             } else {
-                console.error("Not connected or balance is null, cannot send message");
-                console.log(balance);
-                console.log(connected);
+                fetchBalance();
             }
         }
     };

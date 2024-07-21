@@ -8,28 +8,30 @@ export function useUserBalance() {
     const { connected, walletAddress } = useConnection(); 
     const [balance, setBalance] = useState<bigint | null>(null);
 
-    useEffect(() => {
-        async function fetchBalance() {
-            if (client && walletAddress) {
-                try {
-                    const address = Address.parse(walletAddress); 
-                    const balanceResult = await client.getBalance(address);
-                    setBalance(balanceResult);
-                } catch (error) {
-                    console.error("Failed to fetch balance:", error);
-                    setBalance(null);
-                }
-            } else {
+    const fetchBalance = async () => {
+        if (client && walletAddress) {
+            try {
+                const address = Address.parse(walletAddress); 
+                const balanceResult = await client.getBalance(address);
+                setBalance(balanceResult);
+                console.log(balanceResult);
+            } catch (error) {
+                console.error("Failed to fetch balance:", error);
                 setBalance(null);
             }
+        } else {
+            setBalance(null);
+            console.log("Нету нихуя на балансе");
         }
+    };
 
+    useEffect(() => {
         if (connected) {
             fetchBalance();
         } else {
-            setBalance(null); // Clear balance on disconnect
+            setBalance(null);
         }
     }, [client, connected, walletAddress]);
 
-    return { balance, walletAddress };
+    return { balance, walletAddress, fetchBalance };
 }
