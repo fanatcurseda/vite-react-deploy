@@ -57,7 +57,7 @@ export function useContractWrapper() {
                     console.error("Insufficient balance to cover the transaction fee.");
                 }
             } else {
-                fetchBalance();
+                console.error("Insufficient balance to cover the transaction fee");
             }
         }
     };
